@@ -106,7 +106,7 @@ def try_cast(
     expression: _ColumnExpressionOrLiteralArgument[Any] | Any,
     type_: "_TypeEngineArgument[_T]",
 ) -> TryCast[_T]:
-    return sqlalchemy.try_cast(expression, type_)
+    pass
 
 
 def desc(
@@ -120,7 +120,7 @@ def distinct(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
 
 
 def bitwise_not(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
-    return sqlalchemy.bitwise_not(expr)  # ty: ignore[invalid-argument-type]
+    pass
 
 
 def extract(field: str, expr: _ColumnExpressionArgument[Any] | Any) -> Extract:
@@ -138,7 +138,7 @@ def label(
     element: _ColumnExpressionArgument[_T] | _T,
     type_: Optional["_TypeEngineArgument[_T]"] = None,
 ) -> Label[_T]:
-    return sqlalchemy.label(name, element, type_=type_)  # ty: ignore[invalid-argument-type]
+    pass
 
 
 def nulls_first(

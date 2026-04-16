@@ -904,27 +904,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
     ) -> builtins.dict[str, Any]:
-        if PYDANTIC_MINOR_VERSION < (2, 11):
-            by_alias = by_alias or False
-        extra_kwargs: dict[str, Any] = {}
-        extra_kwargs["context"] = context
-        extra_kwargs["serialize_as_any"] = serialize_as_any
-        if PYDANTIC_MINOR_VERSION >= (2, 11):
-            extra_kwargs["fallback"] = fallback
-        if PYDANTIC_MINOR_VERSION >= (2, 12):
-            extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
-        return super().model_dump(
-            mode=mode,
-            include=include,
-            exclude=exclude,
-            by_alias=by_alias,
-            exclude_unset=exclude_unset,
-            exclude_defaults=exclude_defaults,
-            exclude_none=exclude_none,
-            round_trip=round_trip,
-            warnings=warnings,
-            **extra_kwargs,
-        )
+        pass
 
     @deprecated(
         """
@@ -942,14 +922,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_defaults: bool = False,
         exclude_none: bool = False,
     ) -> builtins.dict[str, Any]:
-        return self.model_dump(
-            include=include,
-            exclude=exclude,
-            by_alias=by_alias,
-            exclude_unset=exclude_unset,
-            exclude_defaults=exclude_defaults,
-            exclude_none=exclude_none,
-        )
+        pass
 
     @classmethod
     @deprecated(
@@ -963,7 +936,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         obj: Any,
         update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
-        return cls.model_validate(obj, update=update)
+        pass
 
     @classmethod
     @deprecated(
@@ -977,7 +950,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         obj: Any,
         update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
-        return cls.model_validate(obj, update=update)
+        pass
 
     def sqlmodel_update(
         self: _TSQLModel,
@@ -985,24 +958,4 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         *,
         update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
-        use_update = (update or {}).copy()
-        if isinstance(obj, dict):
-            for key, value in {**obj, **use_update}.items():
-                if key in get_model_fields(self):
-                    setattr(self, key, value)
-        elif isinstance(obj, BaseModel):
-            for key in get_model_fields(obj):
-                if key in use_update:
-                    value = use_update.pop(key)
-                else:
-                    value = getattr(obj, key)
-                setattr(self, key, value)
-            for remaining_key, value in use_update.items():
-                if remaining_key in get_model_fields(self):
-                    setattr(self, remaining_key, value)
-        else:
-            raise ValueError(
-                "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
-            )
-        return self
+        pass

@@ -26,7 +26,7 @@ class SelectBase(_Select[tuple[_T]]):
         """Return a new `Select` construct with the given expression added to
         its `HAVING` clause, joined to the existing clause via `AND`, if any.
         """
-        return super().having(*having)
+        pass
 
 
 class Select(SelectBase[_T]):
